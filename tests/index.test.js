@@ -60,10 +60,12 @@ describe("=== TEST SUITE ===", () => {
     })
     it("does not set new properties on unexisting objects using dot notation without throwing", () => {
       obj["s.s.s"] = 42
+      const fn = () => obj["s.s.s"]
       expect(obj["s.s.s"]).toBeUndefined()
+      expect(fn).not.toThrow()
     })
     it("throws TypeError when setting properties on unexisting nested objects using regular notation", () => {
-      const fn = obj => obj.s.s.s
+      const fn = () => obj.s.s.s
       expect(fn).toThrow(TypeError)
     })
   })
@@ -104,22 +106,32 @@ describe("=== TEST SUITE ===", () => {
       expect("a" in obj).toEqual(true)
     })
   })
+  describe("Works with the 'Object.defineProperty' method", () => {
+    it("can set nested properties using the dot path notation", () => {
+      const val = 333333
+      Object.defineProperty(obj, "c.tested_tester", { value: val, enumerable: true })
+      expect(obj["c.tested_tester"]).toEqual(val)
+      expect(obj.c.tested_tester).toEqual(val)
+    })
+    // it("", () => { })
+    // it("", () => { })
+  })
 
   // Test that it does not throw any errors
   // Test it returns undefined even with unsafe chaining
 
-  describe("Todo", () => {
-    // TODO: Should it create the object / array though?
-    it("Should not throw TypeErrors using regular notation and unsafe chaining for getting", () => {
-      expect(obj.s.s.s).toBeUndefined()
-    })
-    it("Should not throw TypeErrors using regular notation and unsafe chaining for setting", () => {
-      obj.s.s.s = 42
-      expect(obj.s.s.s).toBeUndefined()
-    })
-    it("", () => { })
-    it("", () => { })
-  })
+  // describe("Todo", () => {
+  //   // TODO: Should it create the object / array though?
+  //   it("Should not throw TypeErrors using regular notation and unsafe chaining for getting", () => {
+  //     expect(obj.s.s.s).toBeUndefined()
+  //   })
+  //   it("Should not throw TypeErrors using regular notation and unsafe chaining for setting", () => {
+  //     obj.s.s.s = 42
+  //     expect(obj.s.s.s).toBeUndefined()
+  //   })
+  //   it("", () => { })
+  //   it("", () => { })
+  // })
   // describe("", () => {
   //   it("", () => { })
   // })
