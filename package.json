@@ -1,0 +1,28 @@
+{
+  "name": "proxur",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "source": "src/index.js",
+  "description": "Zero config, safe and lightweight proxy supporting both dot syntax and regular syntax.",
+  "keywords": [
+    "proxy",
+    "safe",
+    "dot path",
+    "lodash path"
+  ],
+  "repository": "https://github.com/flowsn4ke/proxur",
+  "author": {
+    "name": "Theo Louvel",
+    "url": "https://theolouvel.dev"
+  },
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "microbundle-crl --format modern,cjs && rm dist/*.map",
+    "dev": "microbundle-crl watch --no-compress --format modern,cjs"
+  },
+  "devDependencies": {
+    "microbundle-crl": "^0.13.11"
+  }
+}
