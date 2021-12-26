@@ -124,9 +124,9 @@ See:
 
 export default function Proxify(obj) {
   return new Proxy(obj, {
-    // * trap overrides. 
     get: (target, path) => getNestedProperty(target, path),
-    set: (target, path, val) => setNestedProperty(target, path, val),
+    // * The set trap should always return true to avoid error-throwing
+    set: (target, path, val) => setNestedProperty(target, path, val) || true,
     has: (target, path) => hasNestedProperty(target, path),
     defineProperty: (target, path, descriptor) => setNestedProperty(target, path, descriptor),
     deleteProperty: (target, path) => deleteNestedProperty(target, path),

@@ -1,9 +1,9 @@
-### Zero config, safe and lightweight (519 Bytes gzipped!) proxy supporting both dot syntax and regular syntax.
+### Zero config, safe and lightweight (414 bytes gzipped!) proxy supporting both dot syntax and regular syntax.
 
 # Usage
 
 **TL;DR: All expected methods for object will work on this proxy.**
-The only difference is that now you can access and set values using dot-path notation, or regular notation.
+The only difference is that now you can access and set values using dot-path notation, or regular notation. Dot notation is safe both for setting and getting, while using regular notation will throw for TypeError at the time being.
 
 ```js
 import Proxify from "proxur"

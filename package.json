@@ -20,9 +20,13 @@
   "private": false,
   "scripts": {
     "build": "microbundle-crl --format modern,cjs && rm dist/*.map",
-    "dev": "microbundle-crl watch --no-compress --format modern,cjs"
+    "dev": "microbundle-crl watch --no-compress --format modern,cjs",
+    "test": "jest",
+    "test:watch": "jest -i --watchAll"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.16.5",
+    "jest": "^27.4.5",
     "microbundle-crl": "^0.13.11"
   }
 }

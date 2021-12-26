@@ -1,0 +1,2 @@
+- [ ] Decide on behavior when setting properties in unexisting object: Create it?
+- [ ] Implement the resulting decision, but what should we do with arrays? Especially since objects can use string numbers as keys
