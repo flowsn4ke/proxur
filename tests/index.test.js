@@ -106,35 +106,68 @@ describe("=== TEST SUITE ===", () => {
       expect("a" in obj).toEqual(true)
     })
   })
+
   describe("Works with the 'Object.defineProperty' method", () => {
-    it("can set nested properties using the dot path notation", () => {
+    it("can set existing nested properties using the dot path notation", () => {
       const val = 333333
       Object.defineProperty(obj, "c.tested_tester", { value: val, enumerable: true })
       expect(obj["c.tested_tester"]).toEqual(val)
       expect(obj.c.tested_tester).toEqual(val)
     })
-    // it("", () => { })
-    // it("", () => { })
+    it("can set unexisting flat properties", () => {
+      const val = 333333
+      Object.defineProperty(obj, "s", { value: val, enumerable: true })
+      expect(obj["s"]).toEqual(val)
+      expect(obj.s).toEqual(val)
+    })
+
+    describe("Works with the 'Object.getOwnPropertyDescriptor' method", () => {
+      it("correctly returns the value", () => {
+        expect(Object.getOwnPropertyDescriptor(obj, "a").value).toEqual("1")
+      })
+    })
+
+    describe("Works with the 'Object.getPrototypeOf' method", () => {
+      it("correctly returns the original object", () => {
+        expect(Object.getPrototypeOf(obj).a).toEqual("1")
+      })
+    })
+
+    describe("Works with the 'Object.preventExtensions' method", () => {
+      it("prevents extending the object while allowing to set its properties", () => {
+        Object.preventExtensions(obj)
+        obj.a = 42
+        const fn = () => (obj["s"] = 42)
+        expect(obj.a).toEqual(42)
+        expect(fn).toThrow(TypeError)
+      })
+    })
+
+    describe("Works with the 'Object.getPrototypeOf' method", () => {
+      it("correctly returns if the object is extensible", () => {
+        expect(Object.isExtensible(obj)).toEqual(true)
+      })
+      it("correctly returns if the object is not extensible", () => {
+        Object.preventExtensions(obj)
+        expect(Object.isExtensible(obj)).toEqual(false)
+      })
+    })
+
+    describe("Works with the 'Object.keys' method", () => {
+      it("correctly returns the object keys", () => {
+        expect(Object.keys(obj)).toEqual(["a", "b", "c", "d", "e"])
+      })
+    })
   })
 
-  // Test that it does not throw any errors
-  // Test it returns undefined even with unsafe chaining
-
-  // describe("Todo", () => {
-  //   // TODO: Should it create the object / array though?
-  //   it("Should not throw TypeErrors using regular notation and unsafe chaining for getting", () => {
-  //     expect(obj.s.s.s).toBeUndefined()
-  //   })
-  //   it("Should not throw TypeErrors using regular notation and unsafe chaining for setting", () => {
-  //     obj.s.s.s = 42
-  //     expect(obj.s.s.s).toBeUndefined()
-  //   })
-  //   it("", () => { })
-  //   it("", () => { })
-  // })
-  // describe("", () => {
-  //   it("", () => { })
-  // })
-
-
+  describe("Todo", () => {
+    // TODO: Should it create the object / array though?
+    it("Should not throw TypeErrors using regular notation and unsafe chaining for getting", () => {
+      expect(obj.s.s.s).toBeUndefined()
+    })
+    it("Should not throw TypeErrors using regular notation and unsafe chaining for setting", () => {
+      obj.s.s.s = 42
+      expect(obj.s.s.s).toBeUndefined()
+    })
+  })
 })

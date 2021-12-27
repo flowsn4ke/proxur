@@ -109,7 +109,7 @@ const getOwnNestedPropertyDescriptor = (target, path) => {
   if (path.length === 1)
     return Object.getOwnPropertyDescriptor(target, next)
 
-  return getOwnNestedPropertyDescriptor(target[next], path.slice(1), value)
+  return getOwnNestedPropertyDescriptor(target[next], path.slice(1))
 }
 
 /* We do not need to implement the following traps as they don't rely on paths:

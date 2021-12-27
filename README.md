@@ -44,7 +44,7 @@ Object.defineProperty(obj, "foo.bar.test", { value: 333333 })
 console.log(obj.foo.bar.test) // 333333
 
 Object.preventExtensions(obj)
-obj.z = "error"
+obj.z = "error" // Throws a TypeError using the strict mode
 console.log(z in obj) // false
 console.log(Object.isExtensible(obj)) // false
 
@@ -57,5 +57,4 @@ console.log(descriptor) // { value: 333333, writable: true, enumerable: true, co
 
 Etc. You get the idea.
 
-
-
+Also, you will still get a TypeError *in strict mode* no matter what syntax you use if you try to set a property AFTER having called `Object.preventExtensions(obj)`.
