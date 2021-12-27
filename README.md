@@ -1,4 +1,4 @@
-### Zero config, safe and lightweight (414 bytes gzipped!) proxy supporting both dot syntax and regular syntax.
+### Zero config, zero dependency, safe and lightweight (414 bytes gzipped!) proxy supporting both dot syntax and regular syntax.
 
 # Usage
 
