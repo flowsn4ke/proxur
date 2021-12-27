@@ -38,6 +38,14 @@ describe("=== TEST SUITE ===", () => {
   })
 
   describe("Can set properties", () => {
+    it("can set an array index using dot notation", () => {
+      obj["b.0"] = 333
+      expect(obj["b.0"]).toEqual(333)
+    })
+    it("can set an array index using regular notation", () => {
+      obj.b[0] = 333
+      expect(obj.b[0]).toEqual(333)
+    })
     it("can set nested property using dot notation", () => {
       obj["e.0.foo.bar"] = 333
       expect(obj["e.0.foo.bar"]).toEqual(333)
