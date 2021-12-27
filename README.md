@@ -3,7 +3,7 @@
 # Usage
 
 **TL;DR: All expected methods for object will work on this proxy.**
-The only difference is that now you can access and set values using dot-path notation, or regular notation. Dot notation is safe both for setting and getting, while using regular notation will throw a TypeError for the time being.
+The only difference is that now you can access and set values using dot-path notation, or regular notation. Dot notation is safe both for setting and getting, while using regular notation will throw a TypeError in strict mode for the time being.
 
 ```js
 import Proxify from "proxur"
