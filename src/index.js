@@ -50,7 +50,7 @@ See:
 - https://javascript.info/proxy
 */
 
-export default function Proxify(obj) {
+export default function Proxify(obj = {}) {
   return new Proxy(obj, {
     get: plov(getNestedProperty),
     set: plov(setNestedProperty, true), // * The set must return true in order to avoid error-throwing
