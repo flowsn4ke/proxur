@@ -55,6 +55,12 @@ const descriptor = Object.getOwnPropertyDescriptor(obj, "foo.bar.test")
 console.log(descriptor) // { value: 333333, writable: true, enumerable: true, configurable: true }
 ```
 
+If you just need an empty object, you can just call `Proxify` without any arguments:
+
+```js
+const proxifiedObj = Proxify()
+```
+
 Etc. You get the idea.
 
 Also, you will still get a TypeError *in strict mode* no matter what syntax you use if you try to set a property AFTER having called `Object.preventExtensions(obj)`.

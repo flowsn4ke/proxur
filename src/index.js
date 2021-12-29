@@ -122,7 +122,7 @@ See:
 - https://javascript.info/proxy
 */
 
-export default function Proxify(obj) {
+export default function Proxify(obj = {}) {
   return new Proxy(obj, {
     get: (target, path) => getNestedProperty(target, path),
     // * The set trap should always return true to avoid error-throwing
