@@ -168,6 +168,8 @@ describe("=== TEST SUITE ===", () => {
     })
   })
 
+  // TODO: Test deletion
+
   // describe("Todo", () => {
   //   // TODO: Should it create the object / array though?
   //   it("Should not throw TypeErrors using regular notation and unsafe chaining for getting", () => {

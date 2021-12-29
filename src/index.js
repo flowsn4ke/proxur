@@ -1,5 +1,5 @@
-function plov(trap, return_value) {
-  return function _plov(target, path, arg) {
+function curry(trap, return_value) {
+  return function _curry(target, path, arg) {
     if (!(typeof path === "string" || path instanceof Array) || !path.length)
       throw new Error("The provided path should be a string or an array")
 
@@ -14,7 +14,7 @@ function plov(trap, return_value) {
     if (path.length === 1)
       return trap(target, next, arg)
 
-    return _plov(target[next], path.slice(1), arg)
+    return _curry(target[next], path.slice(1), arg)
   }
 }
 
@@ -52,11 +52,11 @@ See:
 
 export default function Proxify(obj = {}) {
   return new Proxy(obj, {
-    get: plov(getNestedProperty),
-    set: plov(setNestedProperty, true), // * The set must return true in order to avoid error-throwing
-    has: plov(hasNestedProperty),
-    defineProperty: plov(defineNestedProperty),
-    deleteProperty: plov(deleteNestedProperty),
+    get: curry(getNestedProperty),
+    set: curry(setNestedProperty, true), // * The set must return true in order to avoid error-throwing
+    has: curry(hasNestedProperty),
+    defineProperty: curry(defineNestedProperty),
+    deleteProperty: curry(deleteNestedProperty),
     getPrototypeOf: target => target,
   })
 }
