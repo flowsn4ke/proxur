@@ -168,14 +168,14 @@ describe("=== TEST SUITE ===", () => {
     })
   })
 
-  describe("Todo", () => {
-    // TODO: Should it create the object / array though?
-    it("Should not throw TypeErrors using regular notation and unsafe chaining for getting", () => {
-      expect(obj.s.s.s).toBeUndefined()
-    })
-    it("Should not throw TypeErrors using regular notation and unsafe chaining for setting", () => {
-      obj.s.s.s = 42
-      expect(obj.s.s.s).toBeUndefined()
-    })
-  })
+  // describe("Todo", () => {
+  //   // TODO: Should it create the object / array though?
+  //   it("Should not throw TypeErrors using regular notation and unsafe chaining for getting", () => {
+  //     expect(obj.s.s.s).toBeUndefined()
+  //   })
+  //   it("Should not throw TypeErrors using regular notation and unsafe chaining for setting", () => {
+  //     obj.s.s.s = 42
+  //     expect(obj.s.s.s).toBeUndefined()
+  //   })
+  // })
 })

@@ -1,115 +1,43 @@
-// TODO: Find the best abstraction for all those traps
+function plov(trap, return_value) {
+  return function _plov(target, path, arg) {
+    if (!(typeof path === "string" || path instanceof Array) || !path.length)
+      throw new Error("The provided path should be a string or an array")
 
-const getNestedProperty = (target, path) => {
-  if (!(typeof path === "string" || path instanceof Array) || !path.length)
-    throw new Error("The provided path should be a string or an array")
+    if (typeof target !== "object")
+      return return_value
 
-  if (typeof target !== "object")
-    return undefined
+    if (typeof path === "string")
+      path = path.split(".")
 
-  if (typeof path === "string")
-    path = path.split(".")
+    const next = path[0]
 
-  const next = path[0]
+    if (path.length === 1)
+      return trap(target, next, arg)
 
-  if (path.length === 1)
-    return target[next]
-
-  return getNestedProperty(target[next], path.slice(1))
-}
-
-const setNestedProperty = (target, path, value) => {
-  if (!(typeof path === "string" || path instanceof Array) || !path.length)
-    throw new Error("The provided path should be a string or an array")
-
-  if (typeof target !== "object")
-    return undefined
-
-  if (typeof path === "string")
-    path = path.split(".")
-
-  const next = path[0]
-
-  if (path.length === 1) {
-    target[next] = value
-    return true
+    return _plov(target[next], path.slice(1), arg)
   }
-
-  return setNestedProperty(target[next], path.slice(1), value)
 }
 
-const hasNestedProperty = (target, path) => {
-  if (!(typeof path === "string" || path instanceof Array) || !path.length)
-    throw new Error("The provided path should be a string or an array")
-
-  if (typeof target !== "object")
-    return undefined
-
-  if (typeof path === "string")
-    path = path.split(".")
-
-  let next = path[0]
-
-  if (path.length === 1)
-    return next in target
-
-  return hasNestedProperty(target[next], path.slice(1))
+function setNestedProperty(target, next, value) {
+  target[next] = value
+  return true
 }
 
-const deleteNestedProperty = (target, path) => {
-  if (!(typeof path === "string" || path instanceof Array) || !path.length)
-    throw new Error("The provided path should be a string or an array")
-
-  if (typeof target !== "object")
-    return undefined
-
-  if (typeof path === "string")
-    path = path.split(".")
-
-  let next = path[0]
-
-  if (path.length === 1)
-    return delete target[next]
-
-  return deleteNestedProperty(target[next], path.slice(1))
+const defineNestedProperty = (target, next, descriptor) => {
+  Object.defineProperty(target, next, descriptor)
+  return true
 }
 
-const defineNestedProperty = (target, path, descriptor) => {
-  if (!(typeof path === "string" || path instanceof Array) || !path.length)
-    throw new Error("The provided path should be a string or an array")
-
-  if (typeof target !== "object")
-    return undefined
-
-  if (typeof path === "string")
-    path = path.split(".")
-
-  const next = path[0]
-
-  if (path.length === 1) {
-    Object.defineProperty(target, next, descriptor)
-    return true
-  }
-
-  return defineNestedProperty(target[next], path.slice(1), descriptor)
+function deleteNestedProperty(target, next) {
+  return delete target[next]
 }
 
-const getOwnNestedPropertyDescriptor = (target, path) => {
-  if (!(typeof path === "string" || path instanceof Array) || !path.length)
-    throw new Error("The provided path should be a string or an array")
+function hasNestedProperty(target, next) {
+  return next in target
+}
 
-  if (typeof target !== "object")
-    return undefined
-
-  if (typeof path === "string")
-    path = path.split(".")
-
-  const next = path[0]
-
-  if (path.length === 1)
-    return Object.getOwnPropertyDescriptor(target, next)
-
-  return getOwnNestedPropertyDescriptor(target[next], path.slice(1))
+function getNestedProperty(target, next) {
+  return target[next]
 }
 
 /* We do not need to implement the following traps as they don't rely on paths:
@@ -124,12 +52,11 @@ See:
 
 export default function Proxify(obj) {
   return new Proxy(obj, {
-    get: (target, path) => getNestedProperty(target, path),
-    // * The set trap should always return true to avoid error-throwing
-    set: (target, path, val) => setNestedProperty(target, path, val) || true,
-    has: (target, path) => hasNestedProperty(target, path),
-    defineProperty: (target, path, descriptor) => defineNestedProperty(target, path, descriptor),
-    deleteProperty: (target, path) => deleteNestedProperty(target, path),
-    getPrototypeOf: (target) => target,
+    get: plov(getNestedProperty),
+    set: plov(setNestedProperty, true), // * The set must return true in order to avoid error-throwing
+    has: plov(hasNestedProperty),
+    defineProperty: plov(defineNestedProperty),
+    deleteProperty: plov(deleteNestedProperty),
+    getPrototypeOf: target => target,
   })
 }

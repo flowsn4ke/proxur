@@ -1,4 +1,4 @@
-### Zero config, zero dependency, safe and lightweight (414 bytes gzipped!) proxy supporting both dot syntax and regular syntax.
+### Zero config, zero dependency, safe(r) and lightweight (414 bytes gzipped!) proxy supporting both dot syntax and regular syntax.
 
 # Usage
 
@@ -26,7 +26,7 @@ console.log(obj["foo.bar.baz"]) // 42
 console.log(obj.foo.bar.baz) // 42
 
 console.log(obj["x.y.z"]) // undefined
-console.log(obj.x.y.z) // undefined
+console.log(obj.x.y.z) // undefined - throws a TypeError using the strict mode
 
 obj["arr.0"] = "zero"
 console.log(obj.arr[0])
