@@ -1,5 +1,5 @@
-function curry(trap, return_value) {
-  return function _curry(target, path, arg) {
+function curry(produce, return_value) {
+  return function trap(target, path, arg) {
     if (!(typeof path === "string" || path instanceof Array) || !path.length)
       throw new Error("The provided path should be a string or an array")
 
@@ -12,9 +12,9 @@ function curry(trap, return_value) {
     const next = path[0]
 
     if (path.length === 1)
-      return trap(target, next, arg)
+      return produce(target, next, arg)
 
-    return _curry(target[next], path.slice(1), arg)
+    return trap(target[next], path.slice(1), arg)
   }
 }
 

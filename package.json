@@ -4,7 +4,7 @@
   "type": "module",
   "main": "dist/index.js",
   "source": "src/index.js",
-  "description": "Zero config, zero dependency, safe and lightweight (414 bytes gzipped!) proxy supporting both dot syntax and regular syntax.",
+  "description": "Zero config, zero dependency, safe and lightweight (427 bytes gzipped!) proxy supporting both dot syntax and regular syntax.",
   "keywords": [
     "proxy",
     "safe",
