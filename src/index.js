@@ -1,8 +1,10 @@
+import "./utils/dx"
+
 function curry(produce, return_value) {
   return function trap(target, path, arg) {
     if (!(typeof path === "string" || path instanceof Array) || !path.length) {
+      console.dev(`The provided path should be a string or an array, you provided ${path}`)
       path = String(path)
-      console.error("The provided path should be a string or an array")
     }
 
     if (typeof target !== "object")
