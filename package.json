@@ -1,6 +1,6 @@
 {
   "name": "proxur",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "source": "src/index.ts",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
