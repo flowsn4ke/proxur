@@ -1,24 +1,24 @@
 import curry from "./curry"
 
-function setNestedProperty(target, next, value) {
+function setNestedProperty(target: object, next: any, value) {
   target[next] = value
   return true
 }
 
-const defineNestedProperty = (target, next, descriptor) => {
+const defineNestedProperty = (target: object, next: any, descriptor) => {
   Object.defineProperty(target, next, descriptor)
   return true
 }
 
-function deleteNestedProperty(target, next) {
+function deleteNestedProperty(target: object, next: any) {
   return delete target[next]
 }
 
-function hasNestedProperty(target, next) {
+function hasNestedProperty(target: object, next: any) {
   return next in target
 }
 
-function getNestedProperty(target, next) {
+function getNestedProperty(target: object, next: any) {
   return target[next]
 }
 

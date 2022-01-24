@@ -1,7 +1,9 @@
-export default function curry(produce, return_value) {
+import { warnDev } from "./utils/dx"
+
+export default function curry(produce: any, return_value?: any): any {
   return function trap(target, path, arg) {
     if (!(typeof path === "string" || path instanceof Array) || !path.length) {
-      console.dev(`The provided path should be a string or an array, you provided ${path}`)
+      warnDev(`The provided path should be a string or an array, you provided ${path}`)
       path = String(path)
     }
 
