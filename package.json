@@ -2,8 +2,9 @@
   "name": "proxur",
   "version": "0.1.5",
   "type": "module",
-  "main": "dist/index.js",
   "source": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.modern.js",
   "description": "Zero config, zero dependency, safe and lightweight (427 bytes gzipped!) proxy supporting both dot syntax and regular syntax.",
   "keywords": [
     "proxy",
@@ -19,14 +20,14 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "microbundle-crl --format modern,cjs && rm dist/*.map",
-    "dev": "microbundle-crl watch --no-compress --format modern,cjs",
+    "build": "microbundle --no-sourcemap --compress",
+    "dev": "microbundle -w --no-compress",
     "test": "jest",
     "test:watch": "jest -i --watchAll"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.16.5",
     "jest": "^27.4.5",
-    "microbundle-crl": "^0.13.11"
+    "microbundle": "^0.14.2"
   }
 }
