@@ -1,7 +1,6 @@
 {
   "name": "proxur",
   "version": "0.1.6",
-  "type": "module",
   "source": "src/index.js",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
